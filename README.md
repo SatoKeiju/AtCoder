@@ -2,4 +2,4 @@
 
 Accepted(AC) Python3 codes
 
-My AtCoder Account: [Sandglass](https://atcoder.jp/users/Sandglass)
+Account: [Sandglass](https://atcoder.jp/users/Sandglass)
