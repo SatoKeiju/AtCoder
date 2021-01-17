@@ -1,35 +1,25 @@
-def main():
+import itertools
+
+
+def main() -> None:
     n, m, k = map(int, input().split())
-    a_books = list(map(int, input().split()))
-    b_books = list(map(int, input().split()))
+    books_a = tuple(map(int, input().split()))
+    books_b = tuple(map(int, input().split()))
 
-    total = 0
-    for i, a_book in enumerate(a_books):
-        if total + a_book <= k:
-            total += a_book
-            a_books[i] = total
-        else:
-            a_books = a_books[:i]
-            break
-            
+    accumulate_b = tuple(itertools.accumulate(books_b))
+
     answer = 0
-    for i, a_time in enumerate(a_books):
-        time_left = k - a_time
-        if time_left < 0:
-            break
-        elif time_left == 0:
+    idx_current_b = m
+    for i, time_a in enumerate(itertools.accumulate(books_a)):
+        if time_a <= k:
             answer = max(answer, i+1)
-            break
         else:
-            for j, b_book in enumerate(b_books):
-                if time_left < b_book:
-                    answer = max(answer, i+1+j)
-                    break
-                else:
-                    time_left -= b_book
-            else:
-                answer = max(answer, i+1+m)
-
+            break
+        for j in reversed(range(idx_current_b)):
+            if time_a + accumulate_b[j] <= k:
+                answer = max(answer, i+j+2)
+                idx_current_b = j + 1
+                break
     print(answer)
 
 
